@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020065121) do
+ActiveRecord::Schema.define(:version => 20111020183808) do
+
+  create_table "brooms", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "period"
+    t.text     "labels"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "brooms", ["user_id"], :name => "index_brooms_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
