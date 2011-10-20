@@ -43,6 +43,10 @@ describe User do
   	@user.should_not be_valid, 'User was valid without a secret'
   end
 
+  it 'should be valid when no attributes are missing' do
+  	User.new(@attrs).should be_valid
+  end
+
   it 'should have many brooms' do
   	@user.should respond_to(:brooms)
   end
