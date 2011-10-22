@@ -76,7 +76,7 @@ describe Broom do
   it 'should be invalid if unit is not [days, weeks, months, years]' do
   	@broom.attributes = @attrs
   	@broom.unit = 'eval()'
-  	@broom.should_not be_valid, 'Broom.unit was valid with someting funky'
+  	@broom.should_not be_valid, 'Broom.unit was valid with something funky'
   	@broom.unit = 'hours'
   	@broom.should_not be_valid, 'Broom.unit was valid with an unsupported unit'
   end
