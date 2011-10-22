@@ -41,8 +41,4 @@ class BroomsController < ApplicationController
 	def check_for_user
 		redirect_to root_url unless authorized?
 	end
-
-	def authorized?
-		@user = User.find(session[:user_id]) if session[:user_id]
-	end
 end

@@ -1,6 +1,9 @@
 Pushbroom::Application.routes.draw do
   resources :brooms
 
+  get '/login' => 'sessions#new', :as => :login
+  get '/logout' => 'sessions#destroy', :as => :logout
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

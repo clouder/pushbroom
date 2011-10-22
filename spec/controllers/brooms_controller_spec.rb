@@ -101,6 +101,7 @@ describe BroomsController, 'when authorized' do
 			User.any_instance.stub_chain(:brooms, :find).and_return(broom)
 			put :update, :id => 1, :broom => { :number => 5 }
 		end
+		
 		it 'should redirect to brooms_url' do
 			response.should redirect_to(brooms_url)
 		end
