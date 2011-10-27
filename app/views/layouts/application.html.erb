@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pushbroom</title>
+  <title>pushbroom</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+<div class="container_16">
+	<div class="grid_16"><h1>pushbroom</h1></div>
+	<div id="brooms">
+		<%= yield %>
+	</div>
+</div>
+<%= link_to 'logout', logout_url %>
 </body>
 </html>

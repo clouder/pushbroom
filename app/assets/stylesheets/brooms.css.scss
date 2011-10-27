@@ -1,3 +1,89 @@
 // Place all the styles related to the brooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#brooms {
+	#add-broom, #broom-closet {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		border-radius: 5px;
+		padding: 0 .5em;
+		overflow: hidden;
+		border: solid thin #ccc;
+		background-color: #e8e8e8;
+
+		form {
+			text-align: center;
+
+			p {
+				text-align: left;
+				margin: 0 0 .25em 0;
+
+				input {
+					font-weight: bold;
+				}
+
+				input[type=text] {
+					width: 2em;
+				}
+			}
+
+			ul {
+				margin: 0 -.5em;
+				padding: 0 .5em;
+				list-style: none;
+				background-color: #f4f4f4;
+
+				li {
+					margin: 0;
+					padding: .25em 0;
+					clear: both;
+					font-weight: bold;
+
+					input {
+						float: left;
+					}
+
+					p {
+						/*margin: 0 .5em 0 1.8em;*/
+						margin: 0 0 0 1.8em;
+					}
+				}
+			}
+
+			input[type=submit] {
+				margin: .5em 0;
+			}
+		}
+	}
+
+	#broom-closet {
+		.broom {
+			float: left;
+			padding-bottom: .5em;
+			margin-bottom: .5em;
+			border-bottom: solid thin #999;
+			
+			p {
+				margin: 0;
+
+				em {
+					text-decoration: underline;
+				}
+			}
+
+			.labels {
+				padding: 0 0 0 1em;
+				font-weight: bold;
+			}
+
+			.actions {
+				text-align: right;
+			}
+		}
+
+		.broom.last {
+			border: none;
+		}
+	}
+}
