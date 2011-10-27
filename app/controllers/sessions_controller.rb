@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 			'anonymous', 'anonymous', :site => 'https://www.google.com',
 			:request_token_path => '/accounts/OAuthGetRequestToken?scope=https://mail.google.com/%20https://www.googleapis.com/auth/userinfo%23email',
 			:access_token_path => '/accounts/OAuthGetAccessToken',
-			:authorize_path => '/account/OAuthAuthorizeToken'
+			:authorize_path => '/accounts/OAuthAuthorizeToken'
 		)
 
 		if session[:oauth][:request_token]
@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
 			request_token = consumer.get_request_token(:oauth_callback => "#{request.scheme}://#{request.host}:#{request.port}/login")
 			session[:oauth][:request_token] = request_token.token
 			session[:oauth][:request_secret] = request_token.secret
-			redirect_to '/accounts/OAuthAuthorizeToken'
+			redirect_to request_token.authorize_url
 		end
 	end
 

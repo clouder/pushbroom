@@ -37,6 +37,7 @@ describe SessionsController, 'when unauthorized' do
 	describe 'on GET :new with empty session' do
 		before :each do
 			request_token = mock(OAuth::RequestToken, :token => 'token', :secret => 'secret')
+			request_token.stub(:authorize_url).and_return('/accounts/OAuthAuthorizeToken')
 			OAuth::Consumer.any_instance.stub(:get_request_token).and_return(request_token)
 			get :new
 		end
