@@ -8,3 +8,19 @@
  *= require grid
  *= require_tree . 
 */
+
+#footer {
+	margin-top: 1em;
+	background-color: #f4f4f4;
+	padding: .5em 0;
+	border-radius: 5px;
+	float: left;
+}
+
+#footer .pipe-menu {
+	list-style: none;
+}
+
+.pipe-menu li {
+	float: left;
+}

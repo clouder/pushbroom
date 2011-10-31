@@ -1,3 +1,42 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#sessions {
+	#rundown, #get-started {
+		background-color: #e8e8e8;
+		border-radius: 5px;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		padding: 0 .5em;
+
+		h2 {
+			margin: 0;
+		}
+
+		p {
+			text-align: justify;
+			margin: 1em;
+			margin-top: 0;
+		}
+
+		a#login {
+			display: block;
+			background-color: #c8c8c8;
+			margin: .5em 25%;
+			text-align: center;
+			font-size: 2em;
+			font-weight: bold;
+			color: #333;
+			text-decoration: none;
+			border-radius: 5px;
+			border: 1px solid #333;
+		}
+
+		a#login:hover {
+			color: black;
+			border-color: black;
+			background-color: #c4c4c4;
+		}
+	}
+}

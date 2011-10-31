@@ -7,12 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% flash.each do |k,v| %>
+<div><%= v %></div>
+<% end %>
 <div class="container_16">
-	<div class="grid_16"><h1>pushbroom</h1></div>
-	<div id="brooms">
+	<div class="grid_16" id="header"><h1>pushbroom</h1></div>
+	<div id="<%= controller.controller_name %>">
 		<%= yield %>
 	</div>
+	<div class="grid_16" id="footer">
+		<ul class="pipe-menu">
+			<li><%= link_to 'GitHub', 'https://github.com/clouder' %></li>
+			<li><%= link_to 'Twitter', 'https://twitter.com/#!/cloudernew' %></li>
+			<li><%= link_to 'Google+', 'https://plus.google.com/117082077242742718254' %></li>
+			<li><%= link_to 'Facebook', 'https://www.facebook.com/cloudernew' %></li>
+		</ul>
+	</div>
 </div>
-<%= link_to 'logout', logout_url %>
 </body>
 </html>
