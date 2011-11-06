@@ -1,8 +1,10 @@
 class BroomsController < ApplicationController
-	before_filter :check_for_user
+	before_filter :check_for_user, :connect_gmail
+	after_filter :disconnect_gmail
 
 	def index
 		@brooms = @user.brooms
+		@broom = Broom.new
 	end
 
 	def edit
@@ -10,13 +12,14 @@ class BroomsController < ApplicationController
 	end
 
 	def create
-		broom = @user.brooms.build(params[:broom])
+		@broom = @user.brooms.build(params[:broom])
 		
-		if broom.save
+		if @broom.save
 			flash[:notice] = 'Your Broom was saved and is ready to sweep!'
 			redirect_to brooms_url
 		else
-			render :new
+			@brooms = @user.brooms - [@broom]
+			render :index
 		end
 	end
 
@@ -36,9 +39,27 @@ class BroomsController < ApplicationController
 		redirect_to brooms_url
 	end
 
+	def sweep
+		::PushbroomSweepers.manual_sweep(params[:id])
+		redirect_to brooms_url
+	end
+
 	private
 
 	def check_for_user
 		redirect_to root_url unless authorized?
+	end
+
+	def connect_gmail
+		@gmail = Gmail.connect(
+			:xoauth, @user.email,
+			:token => @user.token, :secret => @user.secret,
+			:consumer_key => Pushbroom::Application.config.consumer_key,
+			:consumer_secret => Pushbroom::Application.config.consumer_secret
+		)
+	end
+
+	def disconnect_gmail
+		@gmail.logout
 	end
 end

@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
 	def new
 		session[:oauth] ||= {}
 		consumer = OAuth::Consumer.new(
-			'anonymous', 'anonymous', :site => 'https://www.google.com',
+			Pushbroom::Application.config.consumer_key,
+			Pushbroom::Application.config.consumer_secret,
+			:site => 'https://www.google.com',
 			:request_token_path => '/accounts/OAuthGetRequestToken?scope=https://mail.google.com/%20https://www.googleapis.com/auth/userinfo%23email',
 			:access_token_path => '/accounts/OAuthGetAccessToken',
 			:authorize_path => '/accounts/OAuthAuthorizeToken'

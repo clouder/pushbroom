@@ -1,5 +1,9 @@
 Pushbroom::Application.routes.draw do
-  resources :brooms
+  resources :brooms do
+    member do
+      delete 'sweep'
+    end
+  end
 
   get '/login' => 'sessions#new', :as => :login
   get '/logout' => 'sessions#destroy', :as => :logout

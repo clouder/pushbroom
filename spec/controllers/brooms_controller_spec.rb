@@ -90,8 +90,8 @@ describe BroomsController, 'when authorized' do
 			response.should_not be_redirect
 		end
 
-		it 'should render the new template' do
-			should render_template(:new)
+		it 'should render the index template' do
+			should render_template(:index)
 		end
 	end
 
