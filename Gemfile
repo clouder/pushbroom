@@ -5,10 +5,12 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'oauth'
 gem 'gmail'
-gem 'pg'
+
+group :production do
+  gem 'pg'
+end
 
 
 # Gems used only for assets and not required
@@ -37,11 +39,12 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'capybara'
-	gem 'spork', '> 0.9.0.rc'
-	gem 'guard-spork'
-	gem 'guard-rspec'
+  gem 'spork', '> 0.9.0.rc'
+  gem 'guard-spork'
+  gem 'guard-rspec'
 end
 
 group :test, :development do
+  gem 'sqlite3'
   gem "rspec-rails", "~> 2.6"
 end
