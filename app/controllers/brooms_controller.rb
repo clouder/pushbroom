@@ -7,7 +7,12 @@ class BroomsController < ApplicationController
 		@broom = Broom.new
 	end
 
+	def show
+		redirect_to edit_broom_url(params[:id])
+	end
+
 	def edit
+		@brooms = @user.brooms
 		@broom = @user.brooms.find(params[:id])
 	end
 
@@ -29,6 +34,7 @@ class BroomsController < ApplicationController
 			flash[:notice] = 'Your Broom was updated successfully'
 			redirect_to brooms_url
 		else
+			@brooms = @user.brooms
 			render :edit
 		end
 	end

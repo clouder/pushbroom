@@ -1,0 +1,16 @@
+<div id="broom-closet" class="grid_11">
+	<h2>Your Broom Closet</h2>
+	<% @brooms.each do |b| %>
+	<div class="broom">
+		<div class="grid_11">
+			<p class="details">Deletes emails older than <em><%= b.hperiod %></em> from these labels:</p>
+			<p class="labels"><%= b.labels.join(', ') %></p>
+		</div>
+		<div class="grid_5 actions">
+			<%= link_to "Sweep (#{stale_email_count(b)})", sweep_broom_url(b), :method => :delete %> |
+			<%= link_to 'Change', edit_broom_url(b) %> |
+			<%= link_to 'Remove', b, :method => :delete %>
+		</div>
+	</div>
+	<% end %>
+</div>

@@ -1,40 +1,7 @@
-<div id="add-broom" class="grid_5">
-	<%= form_for @broom do |f| %>
-		<h2>Add Broom to Closet</h2>
-		<p>
-			Delete emails older than 
-			<input type="text", name="broom[number]" id="broom_number", size="1",
-				placeholder="#" value="<%= @broom.number %>"/>
-			<% f.text_field :number, :size => 1, :placeholder => '#' %>
-			<%= f.select :unit, %w{days weeks months years} %>
-			from these labels:
-		</p>
-		<ul>
-		<% @gmail.labels.each do |l| %>
-			<% next if l =~ /^\[Gmail]/ %>
-			<li>
-			<!-- <input type="checkbox" name="broom[labels][]" value="<%= l %>" /><p><%= l %></p> -->
-			<%= f.check_box :labels, {:name => 'broom[labels][]' }, l, unchecked_value = '' %><p><%= l %></p>
-			</li>
-		<% end %>
-		</ul>
-		<input type="submit" value="Place this Broom in Closet">
-	<% end %>
-</div>
+<%= render :partial => 'form',
+	:locals => { 
+		:heading => 'Add Broom to Closet',
+		:submit_text => 'Place this Broom in Closet',
+		:cancel => false } %>
 
-<div id="broom-closet" class="grid_11">
-	<h2>Your Broom Closet</h2>
-	<% @brooms.each do |b| %>
-	<div class="broom">
-		<div class="grid_12">
-			<p class="details">Deletes emails older than <em><%= b.hperiod %></em> from these labels:</p>
-			<p class="labels"><%= b.labels.join(', ') %></p>
-		</div>
-		<div class="grid_4 actions">
-			<%= link_to "Sweep (#{stale_email_count(b)})", sweep_broom_url(b), :method => :delete %> |
-			<%= link_to 'Change', edit_broom_url(b) %> |
-			<%= link_to 'Remove', b, :method => :delete %>
-		</div>
-	</div>
-	<% end %>
-</div>
+<%= render :partial => 'closet' %>

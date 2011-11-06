@@ -5,7 +5,7 @@ class Broom < ActiveRecord::Base
   attr_accessible :number, :unit, :labels
   serialize :labels
 
-  validates :user, :number, :unit, :labels, :presence => true
+  validates :user, :number, :unit, :presence => true
   validates :number, :format => { :with => /^[1-9]+\d*$/ }
   validates :unit, :inclusion => { :in => %w{ days weeks months years } }
   validate do
