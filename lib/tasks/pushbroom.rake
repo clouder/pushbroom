@@ -7,3 +7,7 @@ namespace :pushbroom do
 		PushbroomSweepers.manual_sweep(args[:id])
 	end
 end
+
+task :cron => :environment do
+	Rake::Task['pushbroom:full_sweep'].invoke
+end
