@@ -25,7 +25,9 @@
 <% end %>
 <div class="container_16">
 	<div class="grid_16" id="header"><h1><%= link_to 'pushbroom', root_url %></h1></div>
-	<%= link_to 'sign out', logout_url, :id => 'logout' %>
+	<% if @user %>
+		<%= link_to 'sign out', logout_url, :id => 'logout' %>
+	<% end %>
 	<div id="<%= controller.controller_name %>">
 		<%= yield %>
 	</div>
