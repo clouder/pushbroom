@@ -14,6 +14,7 @@ end
 group :production do
   gem 'pg'
   gem 'dalli'
+  gem 'unicorn'
 end
 
 group :test do
