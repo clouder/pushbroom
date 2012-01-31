@@ -1,5 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
+# use yaml if it is there otherwise probably on heroku
+if File.exist? File.expand_path "../app_config.yml", __FILE__
+  APP_CONFIG = YAML.load File.read File.expand_path '../app_config.yml', __FILE__
+end
+
 require 'rails/all'
 
 if defined?(Bundler)
@@ -46,7 +51,7 @@ module Pushbroom
     config.assets.version = '1.0'
 
     # Google OAuth Consumer Credentials
-    config.consumer_key = ENV['CONSUMER_KEY'] || ENV['consumer_key'] || 'anonymous'
-    config.consumer_secret = ENV['CONSUMER_SECRET'] || ENV['consumer_secret'] || 'anonymous'
+    config.consumer_key = ENV['CONSUMER_KEY'] || ENV['consumer_key'] || APP_CONFIG['consumer_key']
+    config.consumer_secret = ENV['CONSUMER_SECRET'] || ENV['consumer_secret'] || APP_CONFIG['consumer_secret']
   end
 end
