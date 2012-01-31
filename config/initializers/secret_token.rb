@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Pushbroom::Application.config.secret_token = APP_CONFIG['session_secret']
+Pushbroom::Application.config.secret_token = ENV['session_secret'] || APP_CONFIG['session_secret']
