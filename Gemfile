@@ -11,10 +11,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :production do
+group :heroku do
   gem 'pg'
-  gem 'dalli'
-  gem 'unicorn'
 end
 
 group :test do
