@@ -50,6 +50,8 @@ module Pushbroom
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    config.assets.initialize_on_precompile = false
+
     # Google OAuth Consumer Credentials
     config.consumer_key = ENV['CONSUMER_KEY'] || ENV['consumer_key'] || APP_CONFIG['consumer_key']
     config.consumer_secret = ENV['CONSUMER_SECRET'] || ENV['consumer_secret'] || APP_CONFIG['consumer_secret']
