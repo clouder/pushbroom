@@ -19,9 +19,6 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'capybara'
-  gem 'spork', '> 0.9.0.rc'
-  gem 'guard-spork'
-  gem 'guard-rspec'
 end
 
 group :test, :development do
