@@ -3,123 +3,117 @@ require 'spec_helper'
 describe Broom do
 	before :each do
 		@broom = Broom.new
-		@broom.user = mock_model(User)
-		@attrs = { :number => 5, :unit => 'days', :labels => %w{ work play }}
 	end
 
-  it 'should respond to Broom#number' do
-		@broom.should respond_to(:number), 'Broom has no number attribute'
+  it 'has a number attribute' do
+    @broom.should respond_to :number
   end
 
-  it 'should respond to Broom#unit' do
-		@broom.should respond_to(:unit), 'Broom has no unit attribute'
+  it 'has a unit attribute' do
+    @broom.should respond_to :unit
   end
 
-  it 'should belong to a user' do
-		@broom.should respond_to(:user), 'Broom is unable to belong to a user'
+  it 'has a user' do
+    @broom.should respond_to :user
   end
 
-  it 'should be invalid when missing everything' do
-  	@broom.should_not be_valid
+  context 'when missing number, unit, or labels, user' do
+    before :each do
+      @broom.valid?
+    end
+
+    it 'is invalid' do
+      @broom.should_not be_valid
+    end
+
+    it 'has an error on number' do
+      @broom.errors.get(:number).should be
+    end
+
+    it 'has an error on unit' do
+      @broom.errors.get(:unit).should be
+    end
+
+    it 'has an error about picking labels' do
+      @broom.errors.get(:base).should include 'You forgot to pick some labels'
+    end
+
+    it 'has an error on user' do
+      @broom.errors.get(:user).should be
+    end
   end
 
-  it 'should be invalid when only given a user' do
-  	@broom.should_not be_valid
+  context 'when number is not a natural number' do
+    [0, 1.1, -2, 'three'].each do |value|
+      it 'it not valid' do
+        @broom.number = value
+        @broom.should_not be_valid
+      end
+
+      it 'has an error about format' do
+        @broom.number = value
+        @broom.valid?
+        @broom.errors.get(:number).should include 'is invalid'
+      end
+    end
   end
 
-  it 'should be invalid when only given a number' do
-  	@broom.number = 5
-  	@broom.should_not be_valid
+  context 'when unit is not in [days, weeks, months, years]' do
+    [0, [], 'hours', 'eval()'].each do |value|
+      it 'is not valid' do
+        @broom.unit = value
+        @broom.should_not be_valid
+      end
+
+      it 'has an error about unit not being supported' do
+        @broom.unit = value
+        @broom.valid?
+        @broom.errors.get(:unit).should include "#{value} is not a supported duration"
+      end
+    end
   end
 
-  it 'should be invalid when only given a unit' do
-  	@broom.unit = 'days'
-  	@broom.should_not be_valid
+  context 'when label is not an array' do
+    [0, 1.1, 'two', {}].each do |value|
+      it 'is not valid' do
+        @broom.labels = value
+        @broom.should_not be_valid
+      end
+
+      it 'has an about picking labels' do
+        @broom.labels = value
+        @broom.valid?
+        @broom.errors.get(:base).should include 'You forgot to pick some labels'
+      end
+    end
   end
 
-  it 'should be invalid when missing user' do
-  	@broom.attributes = @attrs
-  	@broom.user = nil
-  	@broom.should_not be_valid
+  context 'given proper values' do
+    before :each do
+      @broom.user = mock_model(User)
+      @broom.attributes = { :number => 5, :unit => 'days', :labels => %w( work play ) }
+      @broom.valid?
+    end
+
+    it 'is valid' do
+      @broom.should be_valid
+    end
+
+    it 'sets the period attribute' do
+      @broom.period.should eq('5.days'), 'Broom.period was not "5.days"'
+    end
+
+    it 'cleans up duplicate and blank labels' do
+      @broom.labels += ['work', 'play', '', '  ']
+      @broom.valid?
+      @broom.labels.should =~ (%w{ work play })
+    end
   end
 
-  it 'should be invalid when missing number' do
-  	@broom.attributes = @attrs
-  	@broom.number = nil
-  	@broom.should_not be_valid
-  end
-  
-  it 'should be invalid when missing unit' do
-  	@broom.attributes = @attrs
-  	@broom.unit = nil
-  	@broom.should_not be_valid
-  end
-
-  it 'should be invalid if number a decimal' do
-  	@broom.attributes = @attrs
-  	@broom.number = 2.5
-  	@broom.should_not be_valid
-  end
-
-  it 'should be invalid if number is negative' do
-  	@broom.attributes = @attrs
-  	@broom.number = -5
-  	@broom.should_not be_valid
-  end
-
-  it 'should be invalid if number is 0' do
-  	@broom.attributes = @attrs
-  	@broom.number = 0
-  	@broom.should_not be_valid
-  end
-
-  it 'should be invalid if unit is not [days, weeks, months, years]' do
-  	@broom.attributes = @attrs
-  	@broom.unit = 'eval()'
-  	@broom.should_not be_valid, 'Broom.unit was valid with something funky'
-  	@broom.unit = 'hours'
-  	@broom.should_not be_valid, 'Broom.unit was valid with an unsupported unit'
-  end
-
-  it 'should be invalid if labels is missing' do
-  	@broom.attributes = @attrs
-  	@broom.labels = nil
-  	@broom.should_not be_valid
-  end
-
-  it 'should be invalid if labels is not an array' do
-  	@broom.attributes = @attrs
-  	@broom.labels = 'wtf!?'
-  	@broom.should_not be_valid, 'Broom.labels was valid with a string'
-  	@broom.labels = 5
-  	@broom.should_not be_valid, 'Broom.labels was valid with a number'
-  	@broom.labels = { :mail => 'box' }
-  	@broom.should_not be_valid, 'Broom.labels was valid with a hash'
-  end
-
-  it 'should be valid with sensible values' do
-  	@broom.attributes = @attrs
-  	@broom.should be_valid
-  end
-
-  it 'should set the period attribute when validation passes' do
-  	@broom.attributes = @attrs
-  	@broom.valid?
-  	@broom.period.should eq('5.days'), 'Broom.period was not "5.days"'
-  end
-
-  it 'should tidy up :labels when validation passes' do
-  	@broom.attributes = @attrs
-  	@broom.labels.push('work').push('').push('play')
-  	@broom.valid?
-  	@broom.labels.should =~ (%w{ work play })
-  end
-
-  it 'should only allow :number, :unit, and :labels to be massively assigned' do
-		whitelist = Broom.accessible_attributes
-		whitelist.include?(:number).should be_true, 'Broom.number was not found in accessible whitelist'
-		whitelist.include?(:unit).should be_true, 'Broom.unit was not found in accessible whitelist'
-		whitelist.include?(:labels).should be_true, 'Broom.labels was not found in accessible whitelist'
-		whitelist.include?(:period).should be_false, 'Broom.period was found in accessible whitelist'
+  context 'when massively setting a protected attribute' do
+    it 'does not set that attribute' do
+      @broom.attributes = { :period => 'eval()' }
+      @broom.period.should_not be
+    end
   end
 end

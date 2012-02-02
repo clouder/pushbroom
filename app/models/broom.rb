@@ -7,9 +7,11 @@ class Broom < ActiveRecord::Base
 
   validates :user, :number, :unit, :presence => true
   validates :number, :format => { :with => /^[1-9]+\d*$/ }
-  validates :unit, :inclusion => { :in => %w{ days weeks months years } }
+  # validates_inclusion_of :unit, :in => %w( days weeks months years ), :message => 'is not supported'
+  validates :unit, :inclusion => { :in => %w( days weeks months years), :message => "%{value} is not a supported duration" }
   validate do
-  	errors.add(:base, 'Wtf yo!?') unless self.labels.is_a?(Array)
+    # this first line may not be needed
+  	# errors.add(:base, 'Wtf yo!?') unless self.labels.is_a?(Array)
     errors.add(:base, 'You forgot to pick some labels') if self.labels.empty?
   end
 
