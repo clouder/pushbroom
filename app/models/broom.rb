@@ -6,12 +6,9 @@ class Broom < ActiveRecord::Base
   serialize :labels
 
   validates :user, :number, :unit, :presence => true
-  validates :number, :format => { :with => /^[1-9]+\d*$/ }
-  # validates_inclusion_of :unit, :in => %w( days weeks months years ), :message => 'is not supported'
+  validates :number, :format => { :with => /\A[1-9]+\d*\z/ }
   validates :unit, :inclusion => { :in => %w( days weeks months years), :message => "%{value} is not a supported duration" }
   validate do
-    # this first line may not be needed
-  	# errors.add(:base, 'Wtf yo!?') unless self.labels.is_a?(Array)
     errors.add(:base, 'You forgot to pick some labels') if self.labels.empty?
   end
 
