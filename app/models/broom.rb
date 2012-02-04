@@ -26,12 +26,12 @@ class Broom < ActiveRecord::Base
   private
 
   def set_period
-  	self.period = "#{self.number}.#{self.unit}"
+    self.period = "#{self.number}.#{self.unit}"
   end
 
   def tidy_up_labels
     self.labels = [] unless self.labels.is_a?(Array)
-  	self.labels.uniq!
-  	self.labels.delete_if { |l| l.blank? }
+    self.labels.uniq!
+    self.labels.delete_if { |l| l.blank? }
   end
 end

@@ -1,34 +1,34 @@
 <div id="add-broom" class="grid_5">
-	<%= form_for @broom do |f| %>
-		<h2><%= heading %></h2>
-		<% if @broom.errors.any? %>
-			<div class="error-details">
-				<h3>Something isn't quite right...</h3>
-				<ul>
-					<% @broom.errors.full_messages.each do |e| %>
-						<li><%= e %></li>
-					<% end %>
-				</ul>
-			</div>
-		<% end %>
-		<p>
-			Delete emails older than 
-			<input type="text", name="broom[number]" id="broom_number", size="1",
-				placeholder="#" value="<%= period_number(@broom) %>"/>
-			<%= f.select :unit, %w{days weeks months years}, :selected => period_unit(@broom) %>
-			from these labels:
-		</p>
-		<ul>
-		<% @gmail.labels.each do |l| %>
-			<% next if l =~ /^\[Gmail]/ %>
-			<li>
-			<%= f.check_box :labels, {:name => 'broom[labels][]' }, l, unchecked_value = '' %><p><%= l %></p>
-			</li>
-		<% end %>
-		</ul>
-		<input type="submit" value="<%= submit_text %>">
-		<% if cancel %>
-		<%= link_to 'Cancel', brooms_url %>
-		<% end %>
-	<% end %>
+  <%= form_for @broom do |f| %>
+    <h2><%= heading %></h2>
+    <% if @broom.errors.any? %>
+      <div class="error-details">
+        <h3>Something isn't quite right...</h3>
+        <ul>
+          <% @broom.errors.full_messages.each do |e| %>
+            <li><%= e %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <p>
+      Delete emails older than
+      <input type="text", name="broom[number]" id="broom_number", size="1",
+        placeholder="#" value="<%= period_number(@broom) %>"/>
+      <%= f.select :unit, %w{days weeks months years}, :selected => period_unit(@broom) %>
+      from these labels:
+    </p>
+    <ul>
+    <% @gmail.labels.each do |l| %>
+      <% next if l =~ /^\[Gmail]/ %>
+      <li>
+      <%= f.check_box :labels, {:name => 'broom[labels][]' }, l, unchecked_value = '' %><p><%= l %></p>
+      </li>
+    <% end %>
+    </ul>
+    <input type="submit" value="<%= submit_text %>">
+    <% if cancel %>
+    <%= link_to 'Cancel', brooms_url %>
+    <% end %>
+  <% end %>
 </div>
