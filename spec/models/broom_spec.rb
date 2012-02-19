@@ -90,7 +90,7 @@ describe Broom do
 
   context 'given proper values' do
     before :each do
-      @broom.user = mock_model(User)
+      @broom.user = mock_model User
       @broom.attributes = { :number => 5, :unit => 'days', :labels => %w( work play ) }
       @broom.valid?
     end
