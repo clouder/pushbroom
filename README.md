@@ -19,7 +19,7 @@ Last thing you need to do is setup a cron or scheduled task to run `rake pushbro
 
 ## Heroku
 
-If you are going to use Heroku, instead of using the config/app_env.rb you will just use the `heroku config:add`.  It will look something like this `heroku config:add session_secret=someReallyLongBullshit consumer_key=anonymous consumer_secret = 'anonymous'`. If you already pushed your clone up Heroku will tell you that your app is restarting and you should be good to go :)
+If you are going to use Heroku, instead of using the config/app_env.rb you will just use the `heroku config:add` command.  It will look something like this `heroku config:add session_secret=someReallyLongBullshit consumer_key=anonymous consumer_secret=anonymous`. If you already pushed your clone up Heroku will tell you that your app is restarting and you should be good to go :)
 
 Pushbroom used to use the cron addon from Heroku, but it appears as though they are getting rid of it.  They now have the Heroku Scheduler.  Add this through the dashboard on their web site.  Set the task to `rake pushbroom:full_sweep` then choose the time and interval at which you would like it to run.
 
