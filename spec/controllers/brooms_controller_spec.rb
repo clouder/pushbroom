@@ -36,7 +36,7 @@ describe BroomsController do
   describe '#edit' do
     context 'when unauthorized' do
       it 'redirects to root_url' do
-        get :edit
+        get :edit, id: 1
         response.should redirect_to root_url
       end
     end
@@ -48,12 +48,12 @@ describe BroomsController do
       end
 
       it 'responds with success' do
-        get :edit, :id => 1
+        get :edit, id: 1
         response.should be_success
       end
 
       it 'assigns @broom' do
-        get :edit, :id => 1
+        get :edit, id: 1
         response.should be_success
       end
     end
@@ -106,7 +106,7 @@ describe BroomsController do
   describe '#update' do
     context 'when unauthorized' do
       it 'redirects to root_url' do
-        put :update
+        put :update, id: 1
         response.should redirect_to root_url
       end
     end
@@ -124,12 +124,12 @@ describe BroomsController do
         end
 
         it 'responds with success' do
-          put :update, :id => 1
+          put :update, id: 1
           response.should be_success
         end
 
         it 'renders #edit' do
-          put :update, :id => 1
+          put :update, id: 1
           response.should render_template :edit
         end
       end
@@ -140,12 +140,12 @@ describe BroomsController do
         end
 
         it 'responds with redirect' do
-          put :update, :id => 1
+          put :update, id: 1
           response.should be_redirect
         end
 
         it 'sets a flash notice to something pleasant' do
-          put :update, :id => 1
+          put :update, id: 1
           flash[:notice].should eq 'Your Broom was updated successfully'
         end
       end
@@ -155,7 +155,7 @@ describe BroomsController do
   describe '#destroy' do
     context 'when unauthorized' do
       it 'redirects to root_url' do
-        delete :destroy
+        delete :destroy, id: 1
         response.should redirect_to root_url
       end
     end
@@ -167,12 +167,12 @@ describe BroomsController do
       end
 
       it 'redirects to brooms_url' do
-        delete :destroy, :id => 1
+        delete :destroy, id: 1
         response.should redirect_to brooms_url
       end
 
       it 'sets a flash notice informing of broom deletion' do
-        delete :destroy, :id => 1
+        delete :destroy, id: 1
         flash[:notice].should eq 'The now useless broom was placed in the bin'
       end
     end
